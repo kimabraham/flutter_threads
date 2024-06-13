@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thread_clone/constants/sizes.dart';
 import 'package:thread_clone/features/main_navigation/widgets/nav_tab.dart';
 import 'package:thread_clone/features/threads/thread.dart';
+import 'package:thread_clone/features/threads/widgets/new_thread_modal.dart';
 
 class NavTabItem {
   final IconData icon;
@@ -20,7 +21,20 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
 
+  void _onCreateThread() {
+    showModalBottomSheet(
+      context: context,
+      scrollControlDisabledMaxHeightRatio: 0.9,
+      builder: (context) => NewThreadModal(),
+    );
+  }
+
   void _onNavTap(int index) {
+    if (index == 2) {
+      _onCreateThread();
+      setState(() {});
+      return;
+    }
     setState(() {
       _currentIndex = index;
     });
@@ -42,24 +56,16 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<Widget> screens = [
     const Thread(),
     const Center(
-      child: Text(
-        'Search',
-      ),
+      child: Text('Search'),
     ),
     const Center(
-      child: Text(
-        'New post',
-      ),
+      child: Text('New post'),
     ),
     const Center(
-      child: Text(
-        'Heart',
-      ),
+      child: Text('Heart'),
     ),
     const Center(
-      child: Text(
-        'Profile',
-      ),
+      child: Text('Profile'),
     ),
   ];
 
@@ -79,7 +85,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         children: List.generate(
           screens.length,
           (index) {
-            var screen = screens[index];
+            var screen = screens.elementAt(index);
+
             return Offstage(
               offstage: _currentIndex != index,
               child: screen,
