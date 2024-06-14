@@ -10,7 +10,6 @@ class NewThreadModal extends StatelessWidget {
     username: 'kim_abraham',
     avatarUrl: 'https://avatars.githubusercontent.com/u/43990334?v=4',
   );
-
   NewThreadModal({super.key});
 
   @override

@@ -49,7 +49,7 @@ final List<ThreadModel> mockThreads = [
     content:
         'Why do you guys think this happened? Comment the possible issues causing this below 👇 👀',
     imageUrl: [
-      'https://scontent.cdninstagram.com/v/t51.29350-15/359737224_2157300351139275_7798822496800377793_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xMTcweDY4NC5zZHIuZjI5MzUwIn0&_nc_ht=scontent.cdninstagram.com&_nc_cat=103&_nc_ohc=BGePbGymP0QQ7kNvgE0Yk47&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzE0NTE0OTE2MTI1NDMwODA3Mg%3D%3D.2-ccb7-5&oh=00_AYAAFkD8Sr-bQb0snlHyCEc5mjJb7Ip2C9pTVUMn80sJiA&oe=666B6807&_nc_sid=10d13b',
+      'https://picsum.photos/300/400',
     ],
     likes: 100,
     createdAt: DateTime(2024, 7, 12),
@@ -59,7 +59,7 @@ final List<ThreadModel> mockThreads = [
     content:
         'Semantic HTML involves using HTML tags that convey the meaning and structure of content rather than relying solely on visual presentation 💪✨ It promotes clear document structure, accessibility, SEO and code maintainability ✨',
     imageUrl: [
-      'https://scontent.cdninstagram.com/v/t39.30808-6/411360868_17948161214737147_4206811234568158432_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xMDgweDEzNTAuc2RyLmYzMDgwOCJ9&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=0cm-0331L_4Q7kNvgHksukl&edm=APs17CUAAAAA&ccb=7-5&ig_cache_key=MzI1OTAwMjg5NTYwNzg2NjEyNg%3D%3D.2-ccb7-5&oh=00_AYDeV_S5rtsMOePMbZ4cOFOax0Ei3v86fx-VOOVK8sT7OQ&oe=666B5A0D&_nc_sid=10d13b',
+      'https://picsum.photos/300/300',
     ],
     replies: [
       ReplyModel(
@@ -120,9 +120,9 @@ final List<ThreadModel> mockThreads = [
     writer: forthMockUser,
     content: 'Everyone trying to find the value of X',
     imageUrl: [
-      'https://scontent.cdninstagram.com/v/t51.29350-15/361954175_292699223315877_1374513821500479312_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi42OTB4Mzg4LnNkci5mMjkzNTAifQ&_nc_ht=scontent.cdninstagram.com&_nc_cat=109&_nc_ohc=Kff36hsQ8x0Q7kNvgFfl7vl&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzE1MzkxODQ3MDYyNjQ5MzIwOA%3D%3D.2-ccb7-5&oh=00_AYCb59luISuGmwOGyA6z5pYnx6fhrbbJKYE2aaZ4NXDuOQ&oe=666B71AC&_nc_sid=10d13b',
-      'https://scontent.cdninstagram.com/v/t51.29350-15/361954175_292699223315877_1374513821500479312_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi42OTB4Mzg4LnNkci5mMjkzNTAifQ&_nc_ht=scontent.cdninstagram.com&_nc_cat=109&_nc_ohc=Kff36hsQ8x0Q7kNvgFfl7vl&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzE1MzkxODQ3MDYyNjQ5MzIwOA%3D%3D.2-ccb7-5&oh=00_AYCb59luISuGmwOGyA6z5pYnx6fhrbbJKYE2aaZ4NXDuOQ&oe=666B71AC&_nc_sid=10d13b',
-      'https://scontent.cdninstagram.com/v/t51.29350-15/361954175_292699223315877_1374513821500479312_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi42OTB4Mzg4LnNkci5mMjkzNTAifQ&_nc_ht=scontent.cdninstagram.com&_nc_cat=109&_nc_ohc=Kff36hsQ8x0Q7kNvgFfl7vl&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzE1MzkxODQ3MDYyNjQ5MzIwOA%3D%3D.2-ccb7-5&oh=00_AYCb59luISuGmwOGyA6z5pYnx6fhrbbJKYE2aaZ4NXDuOQ&oe=666B71AC&_nc_sid=10d13b'
+      'https://picsum.photos/300/200',
+      'https://picsum.photos/300/200',
+      'https://picsum.photos/300/200',
     ],
     likes: 58,
     replies: [
