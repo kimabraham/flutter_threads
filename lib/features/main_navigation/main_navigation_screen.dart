@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thread_clone/constants/sizes.dart';
+import 'package:thread_clone/features/activity/activity_screen.dart';
 import 'package:thread_clone/features/main_navigation/widgets/nav_tab.dart';
+import 'package:thread_clone/features/search/search_screen.dart';
 import 'package:thread_clone/features/threads/thread.dart';
 import 'package:thread_clone/features/threads/widgets/new_thread_modal.dart';
 
@@ -19,7 +21,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   void _onCreateThread() {
     showModalBottomSheet(
@@ -55,15 +57,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> screens = [
     const Thread(),
-    const Center(
-      child: Text('Search'),
-    ),
+    const SearchScreen(),
     const Center(
       child: Text('New post'),
     ),
-    const Center(
-      child: Text('Heart'),
-    ),
+    const ActivityScreen(),
     const Center(
       child: Text('Profile'),
     ),
@@ -72,15 +70,17 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const FaIcon(
-          FontAwesomeIcons.threads,
-          size: Sizes.size40,
-        ),
-        backgroundColor: Colors.white,
-        surfaceTintColor: Colors.white,
-        toolbarHeight: Sizes.size40,
-      ),
+      appBar: _currentIndex != 1 && _currentIndex != 3
+          ? AppBar(
+              title: const FaIcon(
+                FontAwesomeIcons.threads,
+                size: Sizes.size40,
+              ),
+              backgroundColor: Colors.white,
+              surfaceTintColor: Colors.white,
+              toolbarHeight: Sizes.size40,
+            )
+          : null,
       body: Stack(
         children: List.generate(
           screens.length,
