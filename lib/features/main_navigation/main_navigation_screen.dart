@@ -21,7 +21,7 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _currentIndex = 1;
+  int _currentIndex = 3;
 
   void _onCreateThread() {
     showModalBottomSheet(
@@ -61,7 +61,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const Center(
       child: Text('New post'),
     ),
-    const ActivityScreen(),
+    ActivityScreen(),
     const Center(
       child: Text('Profile'),
     ),

@@ -27,7 +27,7 @@ final List<ThreadModel> mockThreads = [
     content:
         'my favorite thing about b*****y is how hackable (in the good old sense of the word) it is. check out jaz’s social graph visualizer (warning: takes a bit to load). imagine if twitter provided enough data to build userland tools like this!https://bsky.jazco.dev/atlas',
     imageUrl: [
-      'https://pbs.twimg.com/media/GFrNOk4XoAAe0Bv?format=jpg&name=medium',
+      'https://picsum.photos/500/500',
     ],
     replies: [
       ReplyModel(
