@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thread_clone/constants/gaps.dart';
@@ -55,27 +54,6 @@ class ThreadCreateInfo extends StatelessWidget {
         builder: (context) => const MoreModal());
   }
 
-  Widget buildCustomListTile(BuildContext context, String title) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey.shade300,
-            width: 1.0,
-          ),
-        ),
-      ),
-      child: ListTile(
-        title: Text(title),
-        trailing: FaIcon(
-          FontAwesomeIcons.chevronRight,
-          size: 15,
-          color: Colors.grey.shade600,
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -99,7 +77,7 @@ class ThreadCreateInfo extends StatelessWidget {
         Text(
           _timeAgoSinceDate(),
           style: const TextStyle(
-            fontSize: Sizes.size12,
+            fontSize: Sizes.size10,
             color: Colors.grey,
           ),
         ),

@@ -3,7 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thread_clone/constants/sizes.dart';
 import 'package:thread_clone/features/activity/activity_screen.dart';
 import 'package:thread_clone/features/main_navigation/widgets/nav_tab.dart';
+import 'package:thread_clone/features/profile/user_profile_screen.dart';
 import 'package:thread_clone/features/search/search_screen.dart';
+import 'package:thread_clone/features/setting/privacy_screen.dart';
+import 'package:thread_clone/features/setting/setting_screen.dart';
 import 'package:thread_clone/features/threads/thread.dart';
 import 'package:thread_clone/features/threads/widgets/new_thread_modal.dart';
 
@@ -21,13 +24,14 @@ class MainNavigationScreen extends StatefulWidget {
 }
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
-  int _currentIndex = 3;
+  List<Widget> screens = [];
+  int _currentIndex = 4;
 
   void _onCreateThread() {
     showModalBottomSheet(
       context: context,
       scrollControlDisabledMaxHeightRatio: 0.9,
-      builder: (context) => NewThreadModal(),
+      builder: (context) => const NewThreadModal(),
     );
   }
 
@@ -53,24 +57,27 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   void initState() {
     super.initState();
+    screens = [
+      const Thread(),
+      const SearchScreen(),
+      const Center(
+        child: Text('New post'),
+      ),
+      const ActivityScreen(),
+      UserProfileScreen(onTap: _onNavTap),
+      SettingScreen(onTap: _onNavTap),
+      PrivacyScreen(onTap: _onNavTap),
+    ];
   }
-
-  final List<Widget> screens = [
-    const Thread(),
-    const SearchScreen(),
-    const Center(
-      child: Text('New post'),
-    ),
-    ActivityScreen(),
-    const Center(
-      child: Text('Profile'),
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _currentIndex != 1 && _currentIndex != 3
+      appBar: _currentIndex != 1 &&
+              _currentIndex != 3 &&
+              _currentIndex != 4 &&
+              _currentIndex != 5 &&
+              _currentIndex != 6
           ? AppBar(
               title: const FaIcon(
                 FontAwesomeIcons.threads,
@@ -103,10 +110,13 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(navTabs.length, (index) {
             var tab = navTabs[index];
+
             return NavTab(
               icon: tab.icon,
               onTap: () => _onNavTap(index),
-              isSelected: _currentIndex == index,
+              isSelected: _currentIndex == 5 && index == 4 ||
+                  _currentIndex == 6 && index == 4 ||
+                  _currentIndex == index,
             );
           }),
         ),

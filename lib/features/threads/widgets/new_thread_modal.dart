@@ -6,11 +6,7 @@ import 'package:thread_clone/features/threads/widgets/vertical_line.dart';
 import 'package:thread_clone/model/user_model.dart';
 
 class NewThreadModal extends StatelessWidget {
-  final UserModel currentUser = UserModel(
-    username: 'kim_abraham',
-    avatarUrl: 'https://avatars.githubusercontent.com/u/43990334?v=4',
-  );
-  NewThreadModal({super.key});
+  const NewThreadModal({super.key});
 
   @override
   Widget build(BuildContext context) {

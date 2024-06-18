@@ -1,11 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:thread_clone/constants/gaps.dart';
 import 'package:thread_clone/constants/sizes.dart';
+import 'package:thread_clone/model/reply_model.dart';
+import 'package:thread_clone/model/user_model.dart';
 
-class ActivityListItem extends StatelessWidget {
-  final bool isFollow;
+class ActivityListItem extends StatefulWidget {
+  final dynamic data;
 
-  const ActivityListItem({super.key, required this.isFollow});
+  const ActivityListItem({
+    super.key,
+    required this.data,
+  });
+
+  @override
+  State<ActivityListItem> createState() => _ActivityListItemState();
+}
+
+class _ActivityListItemState extends State<ActivityListItem> {
+  String _timeAgoSinceDate(DateTime time) {
+    final now = DateTime.now();
+
+    final diff = now.difference(time);
+
+    int years = now.year - time.year;
+    int months = now.month - time.month;
+    int days = now.day - time.day;
+    int hours = diff.inHours % 24;
+    int minutes = diff.inMinutes % 60;
+
+    if (days < 0) {
+      months -= 1;
+      final prevMonth = DateTime(now.year, now.month, 0);
+      days += prevMonth.day;
+    }
+
+    if (months < 0) {
+      years -= 1;
+      months += 12;
+    }
+
+    String result = '';
+    if (years > 0) result += '${years}Y ';
+    if (months > 0) result += '${months}M ';
+    if (days > 0) result += '${days}D ';
+    if (hours > 0) result += '${hours}H ';
+    if (minutes > 0) result += '${minutes}M ';
+
+    return result.isEmpty ? 'just now' : result;
+  }
+
+  void _onTapFollow() {
+    setState(() {
+      currentUser.following.add(widget.data);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +66,12 @@ class ActivityListItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: Sizes.size20,
-            backgroundImage: NetworkImage('https://picsum.photos/200/200'),
+            backgroundImage: NetworkImage(widget.data is UserModel
+                ? widget.data.avatarUrl
+                : widget.data.writer.avatarUrl),
+            backgroundColor: Colors.transparent,
           ),
           Gaps.h14,
           Expanded(
@@ -35,38 +87,50 @@ class ActivityListItem extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            RichText(
-                              text: TextSpan(
-                                style: DefaultTextStyle.of(context).style,
-                                children: const [
-                                  TextSpan(
-                                    text: 'john_mobbin',
+                            Row(
+                              children: [
+                                Text(
+                                  widget.data is UserModel
+                                      ? widget.data.id
+                                      : widget.data.writer.id,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Gaps.h4,
+                                if (widget.data is UserModel &&
+                                    widget.data.isOfficital)
+                                  const FaIcon(
+                                    FontAwesomeIcons.solidCircleCheck,
+                                    color: Colors.blue,
+                                    size: Sizes.size12,
+                                  ),
+                                if (widget.data is ReplyModel)
+                                  Text(
+                                    _timeAgoSinceDate(widget.data.createdAt),
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey.shade400,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: Sizes.size14,
                                     ),
                                   ),
-                                  TextSpan(
-                                    text: ' 4h',
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              ],
                             ),
-                            const Text(
-                              'Mentioned you',
+                            Text(
+                              widget.data is UserModel
+                                  ? widget.data.username
+                                  : widget.data.writer.username,
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w400,
                                 fontSize: Sizes.size14,
-                                fontWeight: FontWeight.w500,
-                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            const Text(
-                              'Here\'s a thread you should follow if you love botany @jane_mobbin',
-                              style: TextStyle(
+                            Text(
+                              widget.data is UserModel
+                                  ? '${widget.data.follower.length} followers'
+                                  : widget.data.content,
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w400,
                                 fontSize: Sizes.size14,
@@ -75,24 +139,28 @@ class ActivityListItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                      if (isFollow)
-                        Container(
-                          width: 100,
-                          height: 35,
-                          decoration: BoxDecoration(
+                      if (widget.data is UserModel &&
+                          !currentUser.following.contains(widget.data))
+                        GestureDetector(
+                          onTap: _onTapFollow,
+                          child: Container(
+                            width: 100,
+                            height: 35,
+                            decoration: BoxDecoration(
                               border: Border.all(
                                 color: Colors.grey.shade400,
                                 width: Sizes.size1,
                               ),
                               borderRadius: BorderRadius.circular(
                                 Sizes.size10,
-                              )),
-                          child: Center(
-                            child: Text(
-                              'Follow',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.grey.shade400,
+                              ),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                'Follow',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),

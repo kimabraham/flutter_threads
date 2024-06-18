@@ -1,9 +1,13 @@
 class UserModel {
+  final String id;
   final String username;
   final String avatarUrl;
   final bool isOfficital;
+  late List<UserModel> follower;
+  late List<UserModel> following;
 
   UserModel({
+    required this.id,
     required this.username,
     required this.avatarUrl,
     this.isOfficital = false,
@@ -11,23 +15,61 @@ class UserModel {
 }
 
 final UserModel firstMockUser = UserModel(
+  id: 'danabramov',
   username: 'Dan abramov',
   avatarUrl: 'https://avatars.githubusercontent.com/u/810438?v=4',
   isOfficital: true,
 );
+
 final UserModel secondMockUser = UserModel(
+  id: "Flutter",
   username: 'Flutter',
-  avatarUrl:
-      'https://scontent.cdninstagram.com/v/t51.2885-19/357751940_659867238919659_3604128422017610897_n.jpg?stp=dst-jpg_s320x320&_nc_ht=scontent.cdninstagram.com&_nc_cat=103&_nc_ohc=cJEdohRWHHoQ7kNvgGt2qlV&edm=APs17CUBAAAA&ccb=7-5&oh=00_AYA0abjkOgxodQIuyFBIzG2ttfM0hcGWOLB9xx1L0OSVxw&oe=666D4342&_nc_sid=10d13b',
+  avatarUrl: 'https://avatars.githubusercontent.com/u/14101776?s=200&v=4',
 );
+
 final UserModel thirdMockUser = UserModel(
+  id: 'codingdev',
   username: 'Coding dev',
-  avatarUrl:
-      'https://scontent.cdninstagram.com/v/t51.2885-19/357800343_1668845663629526_5737087681525203403_n.jpg?stp=dst-jpg_s320x320&_nc_ht=scontent.cdninstagram.com&_nc_cat=102&_nc_ohc=V-BkoGEp-qcQ7kNvgFhPawZ&edm=APs17CUBAAAA&ccb=7-5&oh=00_AYDv9VaHSOVbKWKk3fHDcOGAAxZKqiDohaDRTWmeyZvSMw&oe=666D5118&_nc_sid=10d13b',
+  avatarUrl: 'https://avatars.githubusercontent.com/u/89719256?v=4',
 );
+
 final UserModel forthMockUser = UserModel(
-  username: 'Coding Ninjas',
-  avatarUrl:
-      'https://scontent.cdninstagram.com/v/t51.2885-19/358000020_792782049170780_4202802959103722480_n.jpg?stp=dst-jpg_s320x320&_nc_ht=scontent.cdninstagram.com&_nc_cat=108&_nc_ohc=verYMVlWSWkQ7kNvgFSFOaM&edm=APs17CUBAAAA&ccb=7-5&oh=00_AYB7IgS8q_0lGS-EfupniNBeOx05NY05sUQAEaMi31YrhA&oe=666D4014&_nc_sid=10d13b',
+  id: 'iamshaunjp',
+  username: 'Shaun (Net Ninja)',
+  avatarUrl: 'https://avatars.githubusercontent.com/u/9838872?v=4',
   isOfficital: true,
 );
+
+final UserModel currentUser = UserModel(
+  id: 'kimkr88',
+  username: "kimkr",
+  avatarUrl: "https://avatars.githubusercontent.com/u/43990334?v=4",
+);
+
+void initializeFollowersAndFollowings() {
+  currentUser.following = [firstMockUser, forthMockUser];
+  currentUser.follower = [secondMockUser, thirdMockUser];
+
+  firstMockUser.following = [thirdMockUser, forthMockUser];
+  firstMockUser.follower = [secondMockUser];
+
+  secondMockUser.following = [thirdMockUser, forthMockUser, currentUser];
+  secondMockUser.follower = [firstMockUser, currentUser];
+
+  thirdMockUser.following = [firstMockUser, forthMockUser];
+  thirdMockUser.follower = [
+    secondMockUser,
+    currentUser,
+  ];
+
+  forthMockUser.following = [thirdMockUser, firstMockUser];
+  forthMockUser.follower = [secondMockUser, currentUser];
+}
+
+final List<UserModel> allUsers = [
+  currentUser,
+  firstMockUser,
+  secondMockUser,
+  thirdMockUser,
+  forthMockUser
+];

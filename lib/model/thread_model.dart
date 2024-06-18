@@ -27,7 +27,7 @@ final List<ThreadModel> mockThreads = [
     content:
         'my favorite thing about b*****y is how hackable (in the good old sense of the word) it is. check out jaz’s social graph visualizer (warning: takes a bit to load). imagine if twitter provided enough data to build userland tools like this!https://bsky.jazco.dev/atlas',
     imageUrl: [
-      'https://picsum.photos/500/500',
+      'https://picsum.photos/300/200',
     ],
     replies: [
       ReplyModel(
@@ -49,7 +49,7 @@ final List<ThreadModel> mockThreads = [
     content:
         'Why do you guys think this happened? Comment the possible issues causing this below 👇 👀',
     imageUrl: [
-      'https://picsum.photos/300/400',
+      'https://picsum.photos/300/200',
     ],
     likes: 100,
     createdAt: DateTime(2024, 7, 12),
@@ -59,7 +59,7 @@ final List<ThreadModel> mockThreads = [
     content:
         'Semantic HTML involves using HTML tags that convey the meaning and structure of content rather than relying solely on visual presentation 💪✨ It promotes clear document structure, accessibility, SEO and code maintainability ✨',
     imageUrl: [
-      'https://picsum.photos/300/300',
+      'https://picsum.photos/300/200',
     ],
     replies: [
       ReplyModel(
