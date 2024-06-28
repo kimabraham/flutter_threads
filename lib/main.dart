@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thread_clone/constants/sizes.dart';
 import 'package:thread_clone/features/setting/repos/dark_mode_repo.dart';
@@ -14,27 +14,27 @@ void main() async {
   final preferences = await SharedPreferences.getInstance();
   final repo = DarkModeRepo(preferences);
 
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => DarkModeVm(repo),
-        )
-      ],
-      child: const ThreadClone(),
+  runApp(ProviderScope(overrides: [
+    darkModeProvider.overrideWith(
+      () => DarkModeVm(repo),
     ),
-  );
+  ], child: const ThreadClone()));
 }
 
-class ThreadClone extends StatelessWidget {
+class ThreadClone extends ConsumerWidget {
   const ThreadClone({super.key});
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     return MaterialApp.router(
       routerConfig: router,
       title: 'Threads clone',
-      themeMode:
-          context.watch<DarkModeVm>().darked ? ThemeMode.dark : ThemeMode.light,
+      themeMode: ref.watch(darkModeProvider).isDarkMode
+          ? ThemeMode.dark
+          : ThemeMode.light,
       theme: ThemeData(
         brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,

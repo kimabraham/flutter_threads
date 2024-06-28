@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:thread_clone/constants/gaps.dart';
 import 'package:thread_clone/constants/sizes.dart';
 import 'package:thread_clone/features/setting/view_model/dark_mode_vm.dart';
 
-class PrivacyScreen extends StatefulWidget {
+class PrivacyScreen extends ConsumerStatefulWidget {
   static const routeURL = 'privacy';
   static const routeName = 'privacy';
 
@@ -15,7 +15,7 @@ class PrivacyScreen extends StatefulWidget {
   });
 
   @override
-  State<PrivacyScreen> createState() => _PrivacyScreenState();
+  PrivacyScreenState createState() => PrivacyScreenState();
 }
 
 final List<Map<String, Object>> privacyList = [
@@ -76,7 +76,7 @@ final List<Map<String, Object>> privacyList = [
   },
 ];
 
-class _PrivacyScreenState extends State<PrivacyScreen> {
+class PrivacyScreenState extends ConsumerState<PrivacyScreen> {
   bool _isPrivacy = false;
 
   void _onTapIsPrivacy(bool? value) {
@@ -90,7 +90,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
   }
 
   void _onTapToggleDarkMode(bool value) {
-    context.read<DarkModeVm>().setDarked(value);
+    ref.read(darkModeProvider.notifier).setDarkMode(value);
   }
 
   void _onTapBackPressed() {
@@ -174,7 +174,7 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
                     ? Switch.adaptive(
                         value: i == 0
                             ? _isPrivacy
-                            : context.watch<DarkModeVm>().darked,
+                            : ref.watch(darkModeProvider).isDarkMode,
                         onChanged:
                             i == 0 ? _onTapIsPrivacy : _onTapToggleDarkMode,
                         activeColor: Theme.of(context).unselectedWidgetColor,
