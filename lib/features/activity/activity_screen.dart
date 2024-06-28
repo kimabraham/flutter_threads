@@ -4,6 +4,9 @@ import 'package:thread_clone/features/activity/widgets/activity_list_item.dart';
 import 'package:thread_clone/model/reply_model.dart';
 
 class ActivityScreen extends StatefulWidget {
+  static const routeURL = '/activity';
+  static const routeName = 'activity';
+
   const ActivityScreen({super.key});
 
   @override

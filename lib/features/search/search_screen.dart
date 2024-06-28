@@ -6,6 +6,9 @@ import 'package:thread_clone/features/activity/widgets/activity_list_item.dart';
 import 'package:thread_clone/model/user_model.dart';
 
 class SearchScreen extends StatefulWidget {
+  static const routeURL = '/search';
+  static const routeName = 'search';
+
   const SearchScreen({super.key});
 
   @override

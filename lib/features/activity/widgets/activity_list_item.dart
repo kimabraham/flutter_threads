@@ -68,9 +68,11 @@ class _ActivityListItemState extends State<ActivityListItem> {
         children: [
           CircleAvatar(
             radius: Sizes.size20,
-            backgroundImage: NetworkImage(widget.data is UserModel
-                ? widget.data.avatarUrl
-                : widget.data.writer.avatarUrl),
+            backgroundImage: NetworkImage(
+              widget.data is UserModel
+                  ? widget.data.avatarUrl
+                  : widget.data.writer.avatarUrl,
+            ),
             backgroundColor: Colors.transparent,
           ),
           Gaps.h14,
@@ -131,7 +133,6 @@ class _ActivityListItemState extends State<ActivityListItem> {
                                   ? '${widget.data.follower.length} followers'
                                   : widget.data.content,
                               style: const TextStyle(
-                                color: Colors.black,
                                 fontWeight: FontWeight.w400,
                                 fontSize: Sizes.size14,
                               ),

@@ -9,7 +9,7 @@ class MoreModal extends StatelessWidget {
   void _onReportTap(BuildContext context) {
     Navigator.pop(context);
     showModalBottomSheet(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).primaryColorLight,
       showDragHandle: true,
       clipBehavior: Clip.hardEdge,
       shape: const RoundedRectangleBorder(

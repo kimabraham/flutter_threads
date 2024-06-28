@@ -1,16 +1,18 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:thread_clone/constants/gaps.dart';
 import 'package:thread_clone/constants/sizes.dart';
-import 'package:thread_clone/features/main_navigation/main_navigation_screen.dart';
+import 'package:thread_clone/common/widgets/main_navigation/main_navigation_screen.dart';
+import 'package:thread_clone/features/setting/views/privacy_screen.dart';
 
 class SettingScreen extends StatefulWidget {
-  final void Function(int) onTap;
+  static const routeURL = '/setting';
+  static const routeName = 'setting';
 
-  const SettingScreen({super.key, required this.onTap});
+  const SettingScreen({super.key});
 
   @override
   State<SettingScreen> createState() => _SettingScreenState();
@@ -19,7 +21,7 @@ class SettingScreen extends StatefulWidget {
 class _SettingScreenState extends State<SettingScreen> {
   bool _isLogin = true;
   bool _isLoading = false;
-  late Timer _timer;
+  Timer? _timer;
 
   @override
   void initState() {
@@ -28,7 +30,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -79,19 +81,22 @@ class _SettingScreenState extends State<SettingScreen> {
     if (item['title'] != settingList[2]['title']) {
       return;
     }
-    widget.onTap(6);
+    context.pushNamed(PrivacyScreen.routeName);
+  }
+
+  void _onTapBackPressed() {
+    context.pop();
   }
 
   final List<Map<String, Object>> settingList = [
     {'icon': FontAwesomeIcons.userPlus, 'title': 'Follow and invite friends'},
     {'icon': FontAwesomeIcons.bell, 'title': 'Notifications'},
-    {'icon': FontAwesomeIcons.lock, 'title': 'Privicy'},
+    {'icon': FontAwesomeIcons.lock, 'title': 'Privacy'},
     {'icon': FontAwesomeIcons.user, 'title': 'Account'},
     {'icon': FontAwesomeIcons.circleQuestion, 'title': 'Help'},
     {'icon': FontAwesomeIcons.circleExclamation, 'title': 'About'},
   ];
 
-  // TODO : logout 시 delay 한 후 show dialog
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +104,7 @@ class _SettingScreenState extends State<SettingScreen> {
         title: const Text('Settings'),
         leadingWidth: Sizes.size96,
         leading: GestureDetector(
-          onTap: () => widget.onTap(4),
+          onTap: _onTapBackPressed,
           child: const Padding(
             padding: EdgeInsets.only(
               left: Sizes.size20,
@@ -118,8 +123,6 @@ class _SettingScreenState extends State<SettingScreen> {
             ),
           ),
         ),
-        surfaceTintColor: Colors.white,
-        backgroundColor: Colors.white,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(Sizes.size1),
           child: Container(
@@ -135,7 +138,6 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () => _onTapListTile(context, item),
               leading: FaIcon(
                 item['icon'] as IconData,
-                color: Colors.black,
                 size: Sizes.size18,
               ),
               title: Text(item['title'] as String),

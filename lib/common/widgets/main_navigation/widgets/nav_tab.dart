@@ -21,12 +21,13 @@ class NavTab extends StatelessWidget {
         onTap: onTap,
         child: Container(
           alignment: Alignment.center,
-          color: Colors.white,
           child: TweenAnimationBuilder(
             duration: const Duration(milliseconds: 200),
             tween: ColorTween(
-              begin: Colors.grey,
-              end: isSelected ? Colors.black : Colors.grey,
+              begin: Theme.of(context).unselectedWidgetColor,
+              end: isSelected
+                  ? Theme.of(context).primaryColorDark
+                  : Theme.of(context).unselectedWidgetColor,
             ),
             builder: (context, value, child) =>
                 FaIcon(icon, size: Sizes.size24, color: value),

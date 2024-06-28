@@ -48,10 +48,11 @@ class ThreadCreateInfo extends StatelessWidget {
 
   void _onEllipsisTap(BuildContext context) {
     showModalBottomSheet(
-        backgroundColor: Colors.white,
-        showDragHandle: true,
-        context: context,
-        builder: (context) => const MoreModal());
+      backgroundColor: Colors.white,
+      showDragHandle: true,
+      context: context,
+      builder: (context) => const MoreModal(),
+    );
   }
 
   @override

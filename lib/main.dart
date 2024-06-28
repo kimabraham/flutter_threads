@@ -1,45 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:thread_clone/constants/sizes.dart';
-import 'package:thread_clone/features/main_navigation/main_navigation_screen.dart';
+import 'package:thread_clone/features/setting/repos/dark_mode_repo.dart';
+import 'package:thread_clone/features/setting/view_model/dark_mode_vm.dart';
 import 'package:thread_clone/model/user_model.dart';
+import 'package:thread_clone/router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   initializeFollowersAndFollowings();
-  runApp(const ThreadClone());
-  // runApp(
-  //   DevicePreview(
-  //     enabled: !kReleaseMode,
-  //     builder: (context) {
-  //       initializeFollowersAndFollowings();
-  //       return const ThreadClone();
-  //     },
-  //   ),
-  // );
+
+  final preferences = await SharedPreferences.getInstance();
+  final repo = DarkModeRepo(preferences);
+
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => DarkModeVm(repo),
+        )
+      ],
+      child: const ThreadClone(),
+    ),
+  );
 }
 
 class ThreadClone extends StatelessWidget {
   const ThreadClone({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // locale: DevicePreview.locale(context),
-      // builder: DevicePreview.appBuilder,
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Threads clone',
+      themeMode:
+          context.watch<DarkModeVm>().darked ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(
+        brightness: Brightness.light,
         scaffoldBackgroundColor: Colors.white,
+        primaryColorDark: Colors.black,
+        primaryColorLight: Colors.white,
+        unselectedWidgetColor: Colors.grey,
         primaryColor: const Color(0xFFE9435A),
         appBarTheme: const AppBarTheme(
           foregroundColor: Colors.black,
           backgroundColor: Colors.white,
-          elevation: 0,
+          surfaceTintColor: Colors.white,
           titleTextStyle: TextStyle(
             color: Colors.black,
             fontSize: Sizes.size18,
             fontWeight: FontWeight.w600,
           ),
         ),
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Colors.white,
+        ),
       ),
-      home: const MainNavigationScreen(),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+        primaryColorDark: Colors.white,
+        primaryColorLight: Colors.black,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+          surfaceTintColor: Colors.black,
+          actionsIconTheme: IconThemeData(
+            color: Colors.white,
+          ),
+        ),
+        bottomAppBarTheme: const BottomAppBarTheme(
+          color: Colors.black,
+        ),
+      ),
     );
   }
 }

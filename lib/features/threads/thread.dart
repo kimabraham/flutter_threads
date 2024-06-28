@@ -4,6 +4,9 @@ import 'package:thread_clone/features/threads/thread_card.dart';
 import 'package:thread_clone/model/thread_model.dart';
 
 class Thread extends StatelessWidget {
+  static const routeURL = '/';
+  static const routeName = 'threads';
+
   const Thread({
     super.key,
   });

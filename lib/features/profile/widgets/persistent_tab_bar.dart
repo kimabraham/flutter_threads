@@ -6,20 +6,20 @@ class PersistentTabBar extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).primaryColorLight,
       child: TabBar(
         indicatorSize: TabBarIndicatorSize.tab,
-        indicatorColor: Colors.black,
+        indicatorColor: Theme.of(context).primaryColorDark,
         indicatorPadding: EdgeInsets.zero,
         labelStyle: const TextStyle(
           fontSize: Sizes.size16,
           fontWeight: FontWeight.bold,
         ),
-        labelColor: Colors.black,
+        labelColor: Theme.of(context).primaryColorDark,
         labelPadding: const EdgeInsets.symmetric(
           vertical: 10,
         ),
-        unselectedLabelColor: Colors.grey.shade500,
+        unselectedLabelColor: Theme.of(context).unselectedWidgetColor,
         overlayColor: WidgetStateColor.transparent,
         dividerHeight: 0.5,
         tabs: const [

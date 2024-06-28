@@ -36,7 +36,6 @@ class ThreadCard extends StatelessWidget {
                       backgroundImage: NetworkImage(
                         thread.writer.avatarUrl,
                       ),
-                      backgroundColor: Colors.transparent,
                     ),
                     Gaps.v10,
                     if (thread.replies!.isNotEmpty) const VerticalLine()

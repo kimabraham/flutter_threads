@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:thread_clone/constants/sizes.dart';
 import 'package:thread_clone/features/activity/activity_screen.dart';
-import 'package:thread_clone/features/main_navigation/widgets/nav_tab.dart';
+import 'package:thread_clone/common/widgets/main_navigation/widgets/nav_tab.dart';
 import 'package:thread_clone/features/profile/user_profile_screen.dart';
 import 'package:thread_clone/features/search/search_screen.dart';
-import 'package:thread_clone/features/setting/privacy_screen.dart';
-import 'package:thread_clone/features/setting/setting_screen.dart';
 import 'package:thread_clone/features/threads/thread.dart';
 import 'package:thread_clone/features/threads/widgets/new_thread_modal.dart';
 
@@ -17,7 +16,13 @@ class NavTabItem {
 }
 
 class MainNavigationScreen extends StatefulWidget {
-  const MainNavigationScreen({super.key});
+  static const String routeName = 'mainNamvigator';
+  final String tab;
+
+  const MainNavigationScreen({
+    super.key,
+    required this.tab,
+  });
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
@@ -25,7 +30,17 @@ class MainNavigationScreen extends StatefulWidget {
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   List<Widget> screens = [];
-  int _currentIndex = 4;
+
+  final List<String> _tabs = [
+    '',
+    'search',
+    'xxxx',
+    'activity',
+    'profile',
+    'setting',
+  ];
+
+  late int _currentIndex = _tabs.indexOf(widget.tab);
 
   void _onCreateThread() {
     showModalBottomSheet(
@@ -38,12 +53,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   void _onNavTap(int index) {
     if (index == 2) {
       _onCreateThread();
-      setState(() {});
       return;
     }
-    setState(() {
-      _currentIndex = index;
-    });
+    context.push('/${_tabs[index]}');
+    _currentIndex = index;
+    setState(() {});
   }
 
   final List<NavTabItem> navTabs = [
@@ -64,27 +78,19 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         child: Text('New post'),
       ),
       const ActivityScreen(),
-      UserProfileScreen(onTap: _onNavTap),
-      SettingScreen(onTap: _onNavTap),
-      PrivacyScreen(onTap: _onNavTap),
+      const UserProfileScreen(),
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _currentIndex != 1 &&
-              _currentIndex != 3 &&
-              _currentIndex != 4 &&
-              _currentIndex != 5 &&
-              _currentIndex != 6
+      appBar: _currentIndex != 1 && _currentIndex != 3 && _currentIndex != 4
           ? AppBar(
               title: const FaIcon(
                 FontAwesomeIcons.threads,
                 size: Sizes.size40,
               ),
-              backgroundColor: Colors.white,
-              surfaceTintColor: Colors.white,
               toolbarHeight: Sizes.size40,
             )
           : null,
@@ -103,7 +109,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         height: Sizes.size44,
-        color: Colors.white,
         padding: EdgeInsets.zero,
         notchMargin: 0,
         child: Row(
@@ -114,9 +119,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             return NavTab(
               icon: tab.icon,
               onTap: () => _onNavTap(index),
-              isSelected: _currentIndex == 5 && index == 4 ||
-                  _currentIndex == 6 && index == 4 ||
-                  _currentIndex == index,
+              isSelected: _currentIndex == index,
             );
           }),
         ),

@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:thread_clone/constants/gaps.dart';
 import 'package:thread_clone/constants/sizes.dart';
 import 'package:thread_clone/features/profile/widgets/persistent_tab_bar.dart';
 import 'package:thread_clone/features/profile/widgets/profile_button.dart';
+import 'package:thread_clone/features/setting/views/setting_screen.dart';
 import 'package:thread_clone/features/threads/thread_card.dart';
 import 'package:thread_clone/model/thread_model.dart';
 import 'package:thread_clone/model/user_model.dart';
 
 class UserProfileScreen extends StatelessWidget {
-  final void Function(int) onTap;
+  static const routeURL = '/profile';
+  static const routeName = 'profile';
 
   const UserProfileScreen({
     super.key,
-    required this.onTap,
   });
+
+  void _onMenuPressed(BuildContext context) {
+    context.push(SettingScreen.routeURL);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +33,6 @@ class UserProfileScreen extends StatelessWidget {
                 SliverAppBar(
                   pinned: true,
                   floating: true,
-                  surfaceTintColor: Colors.white,
                   leading: const Padding(
                     padding: EdgeInsets.only(left: Sizes.size20),
                     child: Column(
@@ -49,7 +54,7 @@ class UserProfileScreen extends StatelessWidget {
                           const FaIcon(FontAwesomeIcons.instagram),
                           Gaps.h16,
                           GestureDetector(
-                            onTap: () => onTap(5),
+                            onTap: () => _onMenuPressed(context),
                             child: const FaIcon(
                               FontAwesomeIcons.bars,
                             ),
